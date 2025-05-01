@@ -42,3 +42,260 @@
   <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crypto-Clash</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #0a0f1f;
+      color: white;
+    }
+    .welcome-screen, .battle-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    .battle-screen {
+      display: none;
+    }
+    .factions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .faction {
+      border: 2px solid white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+    .faction.selected {
+      background-color: orange;
+      color: black;
+      font-weight: bold;
+    }
+    .start-btn, .action-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: orange;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .battlefield {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      gap: 6px;
+      margin-top: 20px;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      background-color: #1a1f2f;
+      border: 1px solid #444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+    .action-panel {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .timer {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+    .message {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      color: #ffbf00;
+      opacity: 0;
+      animation: fadeOut 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="welcome-screen" class="welcome-screen">
+    <h1>Bem-vindo ao Crypto-Clash</h1>
+    <p>Escolha sua facção:</p>
+    <div class="factions">
+      <div class="faction" data-name="NeoBlock Corp">NeoBlock Corp</div>
+      <div class="faction" data-name="DAOminion">DAOminion</div>
+      <div class="faction" data-name="ShadowHash">ShadowHash</div>
+      <div class="faction" data-name="Nação Satoshi">Nação Satoshi</div>
+    </div>
+    <button class="start-btn" onclick="startBattle()">Iniciar Jogo</button>
+  </div>
+
+  <div id="battle-screen" class="battle-screen">
+    <h2>Campo de Batalha - Facção: <span id="faction-name"></span></h2>
+    <div class="timer" id="round-timer">Tempo restante: 15s</div>
+    <div class="battlefield" id="battlefield"></div>
+    <div class="action-panel">
+      <button class="action-btn" onclick="performAction('Atacar')">Atacar</button>
+      <button class="action-btn" onclick="performAction('Defender')">Defender</button>
+      <button class="action-btn" onclick="performAction('Recuar')">Recuar</button>
+      <button class="action-btn" onclick="performAction('Fortalecer')">Fortalecer</button>
+    </div>
+  </div>
+
+  <div id="message" class="message"></div>
+
+  <audio id="battle-music" loop>
+    <source src="futuristic-theme.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    const factions = document.querySelectorAll(".faction");
+    let selectedFaction = null;
+    let timeLeft = 15;
+    let timer;
+    let messageElement = document.getElementById('message');
+
+    const battleMusic = document.getElementById('battle-music');
+    battleMusic.volume = 0.2;
+
+    factions.forEach(faction => {
+      faction.addEventListener("click", () => {
+        factions.forEach(f => f.classList.remove("selected"));
+        faction.classList.add("selected");
+        selectedFaction = faction.dataset.name;
+      });
+    });
+
+    function startBattle() {
+      if (!selectedFaction) {
+        alert("Selecione uma facção antes de iniciar!");
+        return;
+      }
+
+      document.getElementById("welcome-screen").style.display = "none";
+      document.getElementById("battle-screen").style.display = "flex";
+      document.getElementById("faction-name").textContent = selectedFaction;
+
+      createBattlefield();
+      startTimer();
+      battleMusic.play();
+    }
+
+    function createBattlefield() {
+      const battlefield = document.getElementById("battlefield");
+      battlefield.innerHTML = "";
+
+      for (let i = 0; i < 20; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.addEventListener("click", () => {
+          if (!cell.textContent) {
+            cell.textContent = selectedFaction[0];
+            cell.style.backgroundColor = "orange";
+          }
+        });
+        battlefield.appendChild(cell);
+      }
+    }
+
+    function performAction(action) {
+      displayMessage(`Você usou a ação: ${action}`);
+      triggerVibration();
+      shakeBattlefield();
+      playActionSound(action);
+    }
+
+    function playActionSound(action) {
+      const audio = new Audio();
+      switch (action) {
+        case 'Atacar':
+          audio.src = 'attack-sound.mp3';
+          break;
+        case 'Defender':
+          audio.src = 'defend-sound.mp3';
+          break;
+        case 'Recuar':
+          audio.src = 'retreat-sound.mp3';
+          break;
+        case 'Fortalecer':
+          audio.src = 'strengthen-sound.mp3';
+          break;
+      }
+      audio.play();
+    }
+
+    function displayMessage(msg) {
+      messageElement.textContent = msg;
+      messageElement.style.opacity = 1;
+      setTimeout(() => {
+        messageElement.style.opacity = 0;
+      }, 2000);
+    }
+
+    function triggerVibration() {
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
+      }
+    }
+
+    function shakeBattlefield() {
+      const battlefield = document.getElementById('battlefield');
+      battlefield.style.animation = "shake 0.5s";
+      setTimeout(() => {
+        battlefield.style.animation = '';
+      }, 500);
+    }
+
+    function startTimer() {
+      timeLeft = 15;
+      updateTimer();
+
+      timer = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft === 0) {
+          clearInterval(timer);
+          alert("Rodada encerrada!");
+          startTimer(); // Inicia nova rodada automaticamente
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      document.getElementById("round-timer").textContent = `Tempo restante: ${timeLeft}s`;
+    }
+  </script>
+
+</body>
+</html>
