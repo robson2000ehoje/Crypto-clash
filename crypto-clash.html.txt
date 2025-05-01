@@ -11,15 +11,17 @@
       background-color: #0a0f1f;
       color: white;
     }
-    .welcome-screen {
+    .welcome-screen, .battle-screen {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      background-color: #0a0f1f;
+      min-height: 100vh;
       text-align: center;
       padding: 20px;
+    }
+    .battle-screen {
+      display: none;
     }
     .factions {
       display: flex;
@@ -33,16 +35,16 @@
       padding: 10px 20px;
       cursor: pointer;
       border-radius: 8px;
-      transition: transform 0.2s;
+      transition: 0.2s;
     }
     .faction.selected {
       background-color: orange;
       color: black;
       font-weight: bold;
     }
-    .start-btn {
+    .start-btn, .action-btn {
       padding: 10px 20px;
-      font-size: 18px;
+      font-size: 16px;
       background-color: orange;
       color: black;
       border: none;
@@ -50,11 +52,10 @@
       cursor: pointer;
     }
     .battlefield {
-      display: none;
+      display: grid;
       grid-template-columns: repeat(5, 60px);
-      gap: 5px;
-      justify-content: center;
-      padding: 20px;
+      gap: 6px;
+      margin-top: 20px;
     }
     .cell {
       width: 60px;
@@ -66,34 +67,44 @@
       justify-content: center;
       color: white;
       font-weight: bold;
-      font-size: 14px;
     }
     .action-panel {
-      display: none;
+      display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 10px;
-    }
-    .action-btn {
-      padding: 6px 12px;
-      background-color: #222;
-      color: white;
-      border: 1px solid orange;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .action-btn:hover {
-      background-color: orange;
-      color: black;
+      margin-top: 15px;
     }
     .timer {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+    .message {
+      position: absolute;
+      top: 10px;
+      width: 100%;
       text-align: center;
       font-size: 18px;
-      margin-top: 10px;
+      color: #ffbf00;
+      opacity: 0;
+      animation: fadeOut 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
     }
   </style>
 </head>
 <body>
+
   <div id="welcome-screen" class="welcome-screen">
     <h1>Bem-vindo ao Crypto-Clash</h1>
     <p>Escolha sua facção:</p>
@@ -103,32 +114,42 @@
       <div class="faction" data-name="ShadowHash">ShadowHash</div>
       <div class="faction" data-name="Nação Satoshi">Nação Satoshi</div>
     </div>
-    <button class="start-btn" onclick="startBattle()">Iniciar Batalha</button>
+    <button class="start-btn" onclick="startBattle()">Iniciar Jogo</button>
   </div>
 
-  <div class="action-panel">
-    <button class="action-btn" onclick="performAction('atacar')">Atacar</button>
-    <button class="action-btn" onclick="performAction('defender')">Defender</button>
-    <button class="action-btn" onclick="performAction('recuar')">Recuar</button>
-    <button class="action-btn" onclick="performAction('fortalecer')">Fortalecer</button>
+  <div id="battle-screen" class="battle-screen">
+    <h2>Campo de Batalha - Facção: <span id="faction-name"></span></h2>
+    <div class="timer" id="round-timer">Tempo restante: 15s</div>
+    <div class="battlefield" id="battlefield"></div>
+    <div class="action-panel">
+      <button class="action-btn" onclick="performAction('Atacar')">Atacar</button>
+      <button class="action-btn" onclick="performAction('Defender')">Defender</button>
+      <button class="action-btn" onclick="performAction('Recuar')">Recuar</button>
+      <button class="action-btn" onclick="performAction('Fortalecer')">Fortalecer</button>
+    </div>
   </div>
 
-  <div class="timer" id="round-timer">Tempo restante: 15s</div>
+  <div id="message" class="message"></div>
 
-  <div class="battlefield" id="battlefield"></div>
+  <audio id="battle-music" loop>
+    <source src="futuristic-theme.mp3" type="audio/mp3">
+  </audio>
 
   <script>
-    const battlefield = document.getElementById("battlefield");
     const factions = document.querySelectorAll(".faction");
     let selectedFaction = null;
-    let timer;
     let timeLeft = 15;
+    let timer;
+    let messageElement = document.getElementById('message');
 
-    factions.forEach(f => {
-      f.addEventListener("click", () => {
-        factions.forEach(el => el.classList.remove("selected"));
-        f.classList.add("selected");
-        selectedFaction = f.dataset.name;
+    const battleMusic = document.getElementById('battle-music');
+    battleMusic.volume = 0.2;
+
+    factions.forEach(faction => {
+      faction.addEventListener("click", () => {
+        factions.forEach(f => f.classList.remove("selected"));
+        faction.classList.add("selected");
+        selectedFaction = faction.dataset.name;
       });
     });
 
@@ -137,53 +158,100 @@
         alert("Selecione uma facção antes de iniciar!");
         return;
       }
+
       document.getElementById("welcome-screen").style.display = "none";
-      document.querySelector(".action-panel").style.display = "flex";
-      battlefield.style.display = "grid";
-      createGrid();
+      document.getElementById("battle-screen").style.display = "flex";
+      document.getElementById("faction-name").textContent = selectedFaction;
+
+      createBattlefield();
       startTimer();
+      battleMusic.play();
     }
 
-    function createGrid() {
+    function createBattlefield() {
+      const battlefield = document.getElementById("battlefield");
       battlefield.innerHTML = "";
-      for (let i = 0; i < 15; i++) {
+
+      for (let i = 0; i < 20; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
-        cell.dataset.index = i;
-        cell.addEventListener("click", () => handleCellClick(cell));
+        cell.addEventListener("click", () => {
+          if (!cell.textContent) {
+            cell.textContent = selectedFaction[0];
+            cell.style.backgroundColor = "orange";
+          }
+        });
         battlefield.appendChild(cell);
       }
     }
 
-    function handleCellClick(cell) {
-      if (!cell.textContent) {
-        cell.textContent = selectedFaction[0]; // Representa a facção com a inicial
-        cell.style.backgroundColor = "orange";
+    function performAction(action) {
+      displayMessage(`Você usou a ação: ${action}`);
+      triggerVibration();
+      shakeBattlefield();
+      playActionSound(action);
+    }
+
+    function playActionSound(action) {
+      const audio = new Audio();
+      switch (action) {
+        case 'Atacar':
+          audio.src = 'attack-sound.mp3';
+          break;
+        case 'Defender':
+          audio.src = 'defend-sound.mp3';
+          break;
+        case 'Recuar':
+          audio.src = 'retreat-sound.mp3';
+          break;
+        case 'Fortalecer':
+          audio.src = 'strengthen-sound.mp3';
+          break;
+      }
+      audio.play();
+    }
+
+    function displayMessage(msg) {
+      messageElement.textContent = msg;
+      messageElement.style.opacity = 1;
+      setTimeout(() => {
+        messageElement.style.opacity = 0;
+      }, 2000);
+    }
+
+    function triggerVibration() {
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
       }
     }
 
-    function performAction(action) {
-      alert(`Ação escolhida: ${action}`);
-      // Aqui você pode expandir a lógica para aplicar efeitos no campo de batalha
+    function shakeBattlefield() {
+      const battlefield = document.getElementById('battlefield');
+      battlefield.style.animation = "shake 0.5s";
+      setTimeout(() => {
+        battlefield.style.animation = '';
+      }, 500);
     }
 
     function startTimer() {
       timeLeft = 15;
-      updateTimerDisplay();
+      updateTimer();
+
       timer = setInterval(() => {
         timeLeft--;
-        updateTimerDisplay();
+        updateTimer();
         if (timeLeft === 0) {
           clearInterval(timer);
-          alert("Rodada encerrada! Próxima em breve...");
-          startTimer();
+          alert("Rodada encerrada!");
+          startTimer(); // Inicia nova rodada automaticamente
         }
       }, 1000);
     }
 
-    function updateTimerDisplay() {
+    function updateTimer() {
       document.getElementById("round-timer").textContent = `Tempo restante: ${timeLeft}s`;
     }
   </script>
+
 </body>
 </html>
