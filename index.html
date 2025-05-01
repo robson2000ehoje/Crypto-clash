@@ -47,6 +47,10 @@
         .game-box h2 {
             font-size: 24px;
         }
+        #status, #turn-info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -72,36 +76,145 @@
         </div>
     </div>
 
+    <div id="status"></div>
+    <div id="turn-info"></div>
+
     <script>
+        let playerFaction = '';
+        let enemyFaction = '';
+        let playerHP = 100;
+        let enemyHP = 100;
+        let isPlayerTurn = true;  // Controla os turnos
+
+        // Função para atualizar o status na tela
+        function updateStatus() {
+            const statusText = `Você escolheu: ${playerFaction} \nInimigo: ${enemyFaction}`;
+            document.getElementById('status').innerText = statusText;
+            document.getElementById('turn-info').innerText = `Turno: ${isPlayerTurn ? "Seu" : "Inimigo"}`;
+
+            // Atualiza os pontos de vida das facções
+            document.getElementById('status').innerText += `\nPontos de vida: ${playerFaction} - ${playerHP} | ${enemyFaction} - ${enemyHP}`;
+        }
+
         // Evento de clique para cada facção
         document.getElementById('neoBlock').addEventListener('click', function() {
-            alert("Você escolheu NeoBlock Corp");
+            playerFaction = "NeoBlock Corp";
+            enemyFaction = "DAOminion";
+            playerHP = enemyHP = 100;  // Resetando os pontos de vida
+            updateStatus();
         });
 
         document.getElementById('daoMinion').addEventListener('click', function() {
-            alert("Você escolheu DAOminion");
+            playerFaction = "DAOminion";
+            enemyFaction = "NeoBlock Corp";
+            playerHP = enemyHP = 100;  // Resetando os pontos de vida
+            updateStatus();
         });
 
         document.getElementById('shadowHash').addEventListener('click', function() {
-            alert("Você escolheu ShadowHash");
+            playerFaction = "ShadowHash";
+            enemyFaction = "Nação Satoshi";
+            playerHP = enemyHP = 100;  // Resetando os pontos de vida
+            updateStatus();
         });
 
         document.getElementById('nacaoSatoshi').addEventListener('click', function() {
-            alert("Você escolheu Nação Satoshi");
+            playerFaction = "Nação Satoshi";
+            enemyFaction = "ShadowHash";
+            playerHP = enemyHP = 100;  // Resetando os pontos de vida
+            updateStatus();
         });
+
+        // Função para realizar as ações no campo de batalha
+        function performAction(action) {
+            if (playerHP <= 0 || enemyHP <= 0) {
+                alert("O jogo acabou!");
+                return;
+            }
+
+            if (!isPlayerTurn) {
+                alert("Espere a vez do inimigo!");
+                return;
+            }
+
+            let resultMessage = '';
+            let damage = 0;
+
+            if (action === 'atacar') {
+                damage = Math.floor(Math.random() * 20) + 10;  // Dano aleatório entre 10 e 30
+                enemyHP -= damage;
+                resultMessage = `${playerFaction} atacou ${enemyFaction} e causou ${damage} de dano!`;
+            } else if (action === 'defender') {
+                resultMessage = `${playerFaction} se defendeu! Nenhum dano foi causado.`;
+            } else if (action === 'retirar') {
+                resultMessage = `${playerFaction} se retirou do campo de batalha!`;
+                enemyHP = 0;  // Se retirar, o inimigo vence
+            }
+
+            isPlayerTurn = false;  // Alterna o turno
+            alert(resultMessage);
+            updateStatus();
+            checkVictory();
+            enemyTurn();
+        }
+
+        // Função que simula o turno do inimigo
+        function enemyTurn() {
+            if (playerHP <= 0 || enemyHP <= 0) {
+                return;
+            }
+
+            setTimeout(() => {
+                if (enemyHP <= 0) return;
+                let enemyAction = Math.random() > 0.5 ? "atacar" : "defender";  // Inimigo escolhe aleatoriamente atacar ou defender
+                let damage = 0;
+
+                if (enemyAction === 'atacar') {
+                    damage = Math.floor(Math.random() * 20) + 10;
+                    playerHP -= damage;
+                    alert(`${enemyFaction} atacou ${playerFaction} e causou ${damage} de dano!`);
+                } else {
+                    alert(`${enemyFaction} se defendeu!`);
+                }
+
+                isPlayerTurn = true;  // Volta para o turno do jogador
+                updateStatus();
+                checkVictory();
+            }, 1000);
+        }
+
+        // Função para verificar vitória ou derrota
+        function checkVictory() {
+            if (playerHP <= 0) {
+                alert(`${enemyFaction} venceu!`);
+                resetGame();
+            } else if (enemyHP <= 0) {
+                alert(`${playerFaction} venceu!`);
+                resetGame();
+            }
+        }
+
+        // Função para reiniciar o jogo
+        function resetGame() {
+            playerHP = enemyHP = 100;
+            isPlayerTurn = true;
+            updateStatus();
+        }
 
         // Eventos para as ações no campo de batalha
         document.getElementById('attack').addEventListener('click', function() {
-            alert("Você escolheu Atacar!");
+            performAction('atacar');
         });
 
         document.getElementById('defend').addEventListener('click', function() {
-            alert("Você escolheu Defender!");
+            performAction('defender');
         });
 
         document.getElementById('retreat').addEventListener('click', function() {
-            alert("Você escolheu Retirar!");
+            performAction('retirar');
         });
+
+        updateStatus();
     </script>
 
 </body>
