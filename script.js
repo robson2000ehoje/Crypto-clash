@@ -134,137 +134,64 @@ document.querySelectorAll(".faction-button").forEach(button => {
     `;
   });
 });
-/* Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #6f42c1, #00bcd4);
-  color: #fff;
-  text-align: center;
-  padding: 50px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-h1, h2 {
-  color: #fff;
-}
-
-/* Navbar */
-nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: #333;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-nav .logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-}
-
-nav .nav-links button {
-  background-color: #ff5722;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-nav .nav-links button:hover {
-  background-color: #ff784e;
-}
-
-/* Main Container */
-.main-container {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  max-width: 600px;
-  width: 100%;
-  margin-top: 80px;
-}
-
-/* Buttons */
-button {
-  background-color: #009688;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  font-size: 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 20px;
-}
-
-button:hover {
-  background-color: #00796b;
-}
-
-/* Faction Buttons */
-.faction-buttons {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.faction-button {
-  background-color: #4caf50;
-  padding: 15px 30px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.faction-button:hover {
-  background-color: #388e3c;
-}
-
-/* Marketplace */
-#marketplace {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  border-radius: 8px;
-  width: 60%;
-  margin-top: 20px;
-}
-
-#marketplace button {
-  background-color: #2196f3;
-}
-
-#marketplace button:hover {
-  background-color: #1976d2;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .main-container {
-    padding: 20px;
+// Dados das facções
+const factions = {
+  'NeoBlock Corp': {
+    description: 'Uma corporação centralizada com mineração poderosa.',
+    resources: { tokens: 1000, influence: 500, infrastructure: 300 }
+  },
+  'DAOminion': {
+    description: 'Uma organização descentralizada com forte consenso.',
+    resources: { tokens: 500, influence: 800, infrastructure: 200 }
+  },
+  'ShadowHash': {
+    description: 'Grupo hacker-criptoativista, focado em sabotagem.',
+    resources: { tokens: 700, influence: 300, infrastructure: 400 }
+  },
+  'Nação Satoshi': {
+    description: 'Estado digital com forte economia lastreada em blockchain.',
+    resources: { tokens: 1200, influence: 600, infrastructure: 100 }
   }
+};
 
-  nav {
-    padding: 10px;
-  }
+// Elementos de tela
+const startScreen = document.getElementById('start-screen');
+const selectFactionScreen = document.getElementById('select-faction-screen');
+const gameScreen = document.getElementById('game-screen');
+const factionInfo = document.getElementById('faction-info');
+
+// Função para trocar de tela com animação
+function switchScreen(from, to) {
+  from.style.opacity = 0;
+  setTimeout(function () {
+    from.style.display = 'none';
+    to.style.display = 'block';
+    setTimeout(function () {
+      to.style.opacity = 1;
+    }, 100);
+  }, 300);
 }
+
+// Função para iniciar o jogo
+document.getElementById("start-game").addEventListener("click", function() {
+  switchScreen(startScreen, selectFactionScreen);
+});
+
+// Função para processar a escolha da facção
+document.querySelectorAll(".faction-button").forEach(button => {
+  button.addEventListener("click", function() {
+    const selectedFaction = this.getAttribute("data-faction");
+    switchScreen(selectFactionScreen, gameScreen);
+
+    // Exibir informações da facção escolhida
+    factionInfo.innerHTML = `
+      Você escolheu a facção <strong>${selectedFaction}</strong>.
+      <p>${factions[selectedFaction].description}</p>
+      <p>Recursos Iniciais: 
+        Tokens: ${factions[selectedFaction].resources.tokens}, 
+        Influência: ${factions[selectedFaction].resources.influence}, 
+        Infraestrutura: ${factions[selectedFaction].resources.infrastructure}
+      </p>
+    `;
+  });
+});
