@@ -1,134 +1,71 @@
-/* Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #6f42c1, #00bcd4);
-  color: #fff;
-  text-align: center;
-  padding: 50px;
-  min-height: 100vh;
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0b0c2a;
+  color: white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
-h1, h2 {
-  color: #fff;
-}
-
-/* Navbar */
-nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+.container {
+  text-align: center;
+  max-width: 900px;
   padding: 20px;
-  background-color: #333;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
 }
 
-nav .logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
+h1 {
+  color: #FFA500; /* laranja */
+  font-size: 2.5rem;
 }
 
-nav .nav-links button {
-  background-color: #ff5722;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+.subtitle {
+  margin-bottom: 40px;
+  font-size: 1.2rem;
+  color: #cccccc;
+}
+
+.factions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.faction {
+  background-color: #1a1a3d;
+  padding: 20px;
+  border: 2px solid #FFA500;
+  border-radius: 10px;
   cursor: pointer;
-  margin-left: 10px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-nav .nav-links button:hover {
-  background-color: #ff784e;
+.faction:hover {
+  background-color: #292954;
+  transform: scale(1.05);
 }
 
-/* Main Container */
-.main-container {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  max-width: 600px;
-  width: 100%;
-  margin-top: 80px;
+.selection-box {
+  margin-top: 30px;
 }
 
-/* Buttons */
+.hidden {
+  display: none;
+}
+
 button {
-  background-color: #009688;
-  color: white;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #FFA500;
   border: none;
-  padding: 15px 30px;
-  font-size: 18px;
-  border-radius: 8px;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 20px;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: #00796b;
-}
-
-/* Faction Buttons */
-.faction-buttons {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.faction-button {
-  background-color: #4caf50;
-  padding: 15px 30px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.faction-button:hover {
-  background-color: #388e3c;
-}
-
-/* Marketplace */
-#marketplace {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  border-radius: 8px;
-  width: 60%;
-  margin-top: 20px;
-}
-
-#marketplace button {
-  background-color: #2196f3;
-}
-
-#marketplace button:hover {
-  background-color: #1976d2;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .main-container {
-    padding: 20px;
-  }
-
-  nav {
-    padding: 10px;
-  }
+  background-color: #ffb733;
 }
