@@ -49,3 +49,53 @@ document.querySelectorAll(".faction-button").forEach(button => {
     `;
   });
 });
+let playerTokens = 1000; // Exemplo inicial de tokens do jogador
+
+// Atualiza o display de tokens do jogador
+function updatePlayerTokens() {
+  document.getElementById('player-tokens').textContent = playerTokens;
+}
+
+// Exibir o marketplace ao iniciar o turno
+document.getElementById("start-turn").addEventListener("click", function() {
+  document.getElementById('marketplace').style.display = "block";
+  updatePlayerTokens();
+});
+
+// Comprar Cripto
+document.getElementById('buy-crypto').addEventListener('click', function() {
+  const cryptoPrice = 100; // Preço da cripto (simples para protótipo)
+  if (playerTokens >= cryptoPrice) {
+    playerTokens -= cryptoPrice;
+    alert('Você comprou 1 cripto!');
+    updatePlayerTokens();
+  } else {
+    alert('Você não tem tokens suficientes!');
+  }
+});
+
+// Vender Cripto
+document.getElementById('sell-crypto').addEventListener('click', function() {
+  const cryptoValue = 100; // Valor da cripto (simples para protótipo)
+  playerTokens += cryptoValue;
+  alert('Você vendeu 1 cripto!');
+  updatePlayerTokens();
+});
+// Função para gerar eventos aleatórios
+function generateRandomEvent() {
+  const events = [
+    { message: "A crise econômica afetou o mercado!", tokensChange: -200 },
+    { message: "Um ataque hacker roubou seus tokens!", tokensChange: -500 },
+    { message: "O mercado de criptos teve uma alta!", tokensChange: 300 }
+  ];
+
+  const event = events[Math.floor(Math.random() * events.length)];
+  alert(event.message);
+  playerTokens += event.tokensChange;
+  updatePlayerTokens();
+}
+
+// Chamar um evento aleatório a cada turno
+document.getElementById("start-turn").addEventListener("click", function() {
+  generateRandomEvent();
+});
