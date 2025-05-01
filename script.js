@@ -99,3 +99,38 @@ function generateRandomEvent() {
 document.getElementById("start-turn").addEventListener("click", function() {
   generateRandomEvent();
 });
+// Função para trocar de tela com animação
+function switchScreen(from, to) {
+  from.style.opacity = 0;
+  setTimeout(function () {
+    from.style.display = 'none';
+    to.style.display = 'block';
+    setTimeout(function () {
+      to.style.opacity = 1;
+    }, 100);
+  }, 300);
+}
+
+// Função para iniciar o jogo
+document.getElementById("start-game").addEventListener("click", function() {
+  switchScreen(startScreen, selectFactionScreen);
+});
+
+// Função para processar a escolha da facção
+document.querySelectorAll(".faction-button").forEach(button => {
+  button.addEventListener("click", function() {
+    const selectedFaction = this.getAttribute("data-faction");
+    switchScreen(selectFactionScreen, gameScreen);
+
+    // Exibir informações da facção escolhida
+    factionInfo.innerHTML = `
+      Você escolheu a facção <strong>${selectedFaction}</strong>.
+      <p>${factions[selectedFaction].description}</p>
+      <p>Recursos Iniciais: 
+        Tokens: ${factions[selectedFaction].resources.tokens}, 
+        Influência: ${factions[selectedFaction].resources.influence}, 
+        Infraestrutura: ${factions[selectedFaction].resources.infrastructure}
+      </p>
+    `;
+  });
+});
