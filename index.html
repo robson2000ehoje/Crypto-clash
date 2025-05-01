@@ -7,10 +7,24 @@
   <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
-  <div class="main-container">
+  <div class="main-container" id="start-screen">
     <h1>Crypto-clash</h1>
     <button id="start-game">Iniciar Jogo</button>
     <button id="rules">Ver Regras</button>
+  </div>
+
+  <div class="main-container" id="select-faction-screen" style="display: none;">
+    <h1>Escolha sua Facção</h1>
+    <button class="faction-button" data-faction="NeoBlock Corp">NeoBlock Corp</button>
+    <button class="faction-button" data-faction="DAOminion">DAOminion</button>
+    <button class="faction-button" data-faction="ShadowHash">ShadowHash</button>
+    <button class="faction-button" data-faction="Nação Satoshi">Nação Satoshi</button>
+  </div>
+
+  <div class="main-container" id="game-screen" style="display: none;">
+    <h1>Bem-vindo ao Crypto-clash</h1>
+    <p id="faction-info"></p>
+    <button id="start-turn">Iniciar Turno</button>
   </div>
 
   <script src="src/script.js"></script>
