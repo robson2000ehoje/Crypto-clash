@@ -164,3 +164,137 @@ button:hover {
     padding: 10px;
   }
 }
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #6f42c1, #00bcd4);
+  color: #fff;
+  text-align: center;
+  padding: 50px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1, h2 {
+  color: #fff;
+}
+
+/* Navbar */
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+nav .nav-links button {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+nav .nav-links button:hover {
+  background-color: #ff784e;
+}
+
+/* Main Container */
+.main-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  margin-top: 80px;
+}
+
+/* Buttons */
+button {
+  background-color: #009688;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 20px;
+}
+
+button:hover {
+  background-color: #00796b;
+}
+
+/* Faction Buttons */
+.faction-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.faction-button {
+  background-color: #4caf50;
+  padding: 15px 30px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.faction-button:hover {
+  background-color: #388e3c;
+}
+
+/* Marketplace */
+#marketplace {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+  margin-top: 20px;
+}
+
+#marketplace button {
+  background-color: #2196f3;
+}
+
+#marketplace button:hover {
+  background-color: #1976d2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 20px;
+  }
+
+  nav {
+    padding: 10px;
+  }
+}
