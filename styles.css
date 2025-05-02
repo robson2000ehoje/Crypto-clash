@@ -1,615 +1,4 @@
-body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background-color: #0b0c2a;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
-  text-align: center;
-  max-width: 900px;
-  padding: 20px;
-}
-
-h1 {
-  color: #FFA500; /* laranja */
-  font-size: 2.5rem;
-}
-
-.subtitle {
-  margin-bottom: 40px;
-  font-size: 1.2rem;
-  color: #cccccc;
-}
-
-.factions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.faction {
-  background-color: #1a1a3d;
-  padding: 20px;
-  border: 2px solid #FFA500;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.faction:hover {
-  background-color: #292954;
-  transform: scale(1.05);
-}
-
-.selection-box {
-  margin-top: 30px;
-}
-
-.hidden {
-  display: none;
-}
-
-button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #FFA500;
-  border: none;
-  color: black;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #ffb733;
-}
-
-.game-screen {
-  margin-top: 30px;
-  color: #00FF00;
-}
-
-.loader {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #FFA500;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto-Clash</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-
-    h1 {
-      font-size: 4em;
-      color: #00ffff;
-      text-shadow: 0 0 15px #00ffff;
-      margin: 0.2em;
-    }
-
-    p {
-      font-size: 1.5em;
-      color: #ffffffcc;
-      margin-bottom: 2em;
-      text-align: center;
-      max-width: 90%;
-    }
-
-    button {
-      font-size: 1.2em;
-      padding: 1em 2em;
-      background-color: #ff5500;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff5500;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #ff3300;
-      box-shadow: 0 0 20px #ff3300;
-    }
-
-    .faction-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5em;
-      width: 100%;
-      max-width: 1000px;
-      margin-top: 20px;
-    }
-
-    .faction-card {
-      background-color: #111;
-      border: 2px solid #00ffff44;
-      border-radius: 10px;
-      padding: 1em;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-
-    .faction-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px #00ffff66;
-    }
-
-    .faction-name {
-      font-size: 1.5em;
-      color: #ff5500;
-      margin-top: 0.5em;
-    }
-
-    .back-button {
-      margin-top: 2em;
-      padding: 0.8em 1.5em;
-      background-color: #ff5500;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff5500;
-    }
-
-    .back-button:hover {
-      background-color: #ff3300;
-    }
-
-    .page {
-      display: none;
-    }
-
-    .active-page {
-      display: block;
-      width: 100%;
-      max-width: 500px; /* Definindo um tamanho máximo para não ficar esticado em telas grandes */
-      margin: 0 auto; /* Centraliza o conteúdo */
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Página de Boas-Vindas -->
-  <div id="welcome-page" class="page active-page">
-    <h1>Crypto-Clash</h1>
-    <p>Bem-vindo ao campo de batalha das criptomoedas. Prepare-se para escolher seu lado na guerra digital.</p>
-    <button onclick="showPage('faction-select')">Iniciar</button>
-  </div>
-
-  <!-- Página de Seleção de Facção -->
-  <div id="faction-select-page" class="page">
-    <h1>Escolha sua Facção</h1>
-    <div class="faction-grid">
-      <div class="faction-card" onclick="selectFaction('NeoBlock Corp')">
-        <img src="https://via.placeholder.com/200x120?text=NeoBlock+Corp" alt="NeoBlock Corp">
-        <div class="faction-name">NeoBlock Corp</div>
-      </div>
-      <div class="faction-card" onclick="selectFaction('DAOminion')">
-        <img src="https://via.placeholder.com/200x120?text=DAOminion" alt="DAOminion">
-        <div class="faction-name">DAOminion</div>
-      </div>
-      <div class="faction-card" onclick="selectFaction('ShadowHash')">
-        <img src="https://via.placeholder.com/200x120?text=ShadowHash" alt="ShadowHash">
-        <div class="faction-name">ShadowHash</div>
-      </div>
-      <div class="faction-card" onclick="selectFaction('Nação Satoshi')">
-        <img src="https://via.placeholder.com/200x120?text=Nacao+Satoshi" alt="Nação Satoshi">
-        <div class="faction-name">Nação Satoshi</div>
-      </div>
-    </div>
-
-    <button class="back-button" onclick="showPage('welcome')">Voltar</button>
-  </div>
-
-  <script>
-    // Função para alternar entre as páginas
-    function showPage(page) {
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(p => p.classList.remove('active-page'));
-      
-      if (page === 'welcome') {
-        document.getElementById('welcome-page').classList.add('active-page');
-      } else if (page === 'faction-select') {
-        document.getElementById('faction-select-page').classList.add('active-page');
-      }
-    }
-
-    // Função para selecionar a facção
-    function selectFaction(name) {
-      alert("Facção selecionada: " + name);
-      // Aqui você pode adicionar mais lógica para continuar com o jogo
-    }
-  </script>
-
-</body>
-</html>
-body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
-  padding: 10px; /* Espaçamento para evitar que o conteúdo fique colado na borda */
-  box-sizing: border-box;
-}
-
-h1 {
-  font-size: 4em;
-  color: #00ffff;
-  text-shadow: 0 0 15px #00ffff;
-  margin: 0.2em;
-}
-
-p {
-  font-size: 1.5em;
-  color: #ffffffcc;
-  margin-bottom: 2em;
-  text-align: center;
-  max-width: 90%;
-}
-
-button {
-  font-size: 1.2em;
-  padding: 1em 2em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #ff3300;
-  box-shadow: 0 0 20px #ff3300;
-}
-
-.faction-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5em;
-  width: 100%;
-  max-width: 1000px; /* Permite maior largura em telas grandes */
-  margin-top: 20px;
-}
-
-.faction-card {
-  background-color: #111;
-  border: 2px solid #00ffff44;
-  border-radius: 10px;
-  padding: 1em;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.faction-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px #00ffff66;
-}
-
-.faction-name {
-  font-size: 1.5em;
-  color: #ff5500;
-  margin-top: 0.5em;
-}
-
-.back-button {
-  margin-top: 2em;
-  padding: 0.8em 1.5em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
-}
-
-.back-button:hover {
-  background-color: #ff3300;
-}
-
-.page {
-  display: none;
-}
-
-.active-page {
-  display: block;
-  width: 100%;
-  max-width: 90%; /* Ajuste para ocupar 90% da tela em dispositivos grandes */
-  margin: 0 auto; /* Centraliza o conteúdo */
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; /* Inclui bordas e padding no cálculo da largura e altura */
-}
-
-html, body {
-  height: 100%;  /* Garantir que o conteúdo ocupe toda a altura da tela */
-  width: 100%;  /* Garantir que o conteúdo ocupe toda a largura da tela */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-  color: white;
-}
-
-h1 {
-  font-size: 4em;
-  color: #00ffff;
-  text-shadow: 0 0 15px #00ffff;
-  margin: 0.2em;
-}
-
-p {
-  font-size: 1.5em;
-  color: #ffffffcc;
-  margin-bottom: 2em;
-  text-align: center;
-  width: 90%;
-  max-width: 600px; /* Limite para o texto não ficar muito largo */
-}
-
-button {
-  font-size: 1.2em;
-  padding: 1em 2em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #ff3300;
-  box-shadow: 0 0 20px #ff3300;
-}
-
-.faction-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5em;
-  width: 100%;
-  max-width: 1000px;  /* Ajustado para telas maiores */
-  margin-top: 20px;
-}
-
-.faction-card {
-  background-color: #111;
-  border: 2px solid #00ffff44;
-  border-radius: 10px;
-  padding: 1em;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.faction-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px #00ffff66;
-}
-
-.faction-name {
-  font-size: 1.5em;
-  color: #ff5500;
-  margin-top: 0.5em;
-}
-
-.back-button {
-  margin-top: 2em;
-  padding: 0.8em 1.5em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
-}
-
-.back-button:hover {
-  background-color: #ff3300;
-}
-
-.page {
-  display: none;
-}
-
-.active-page {
-  display: block;
-  width: 100%;
-  max-width: 90vw; /* Ajuste de largura em porcentagem da tela */
-  padding: 20px;
-  margin: 0 auto; /* Centraliza o conteúdo */
-}
-
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2.5em;  /* Reduz o tamanho do título em telas menores */
-  }
-
-  p {
-    font-size: 1.2em;  /* Reduz o tamanho do texto em telas menores */
-  }
-
-  button {
-    font-size: 1em;  /* Ajusta o tamanho dos botões em telas menores */
-    padding: 0.8em 1.2em;
-  }
-
-  .faction-grid {
-    gap: 1em;  /* Menor espaçamento entre os cards em telas menores */
-  }
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; /* Inclui bordas e padding no cálculo da largura e altura */
-}
-
-html, body {
-  height: 100%;  /* Garante que o conteúdo ocupe toda a altura da tela */
-  width: 100%;  /* Garante que o conteúdo ocupe toda a largura da tela */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-  color: white;
-  overflow: hidden; /* Impede que conteúdo ultrapasse a tela */
-}
-
-h1 {
-  font-size: 4em;
-  color: #00ffff;
-  text-shadow: 0 0 15px #00ffff;
-  margin: 0.2em;
-}
-
-p {
-  font-size: 1.5em;
-  color: #ffffffcc;
-  margin-bottom: 2em;
-  text-align: center;
-  width: 90%;
-  max-width: 600px; /* Limite para o texto não ficar muito largo */
-}
-
-button {
-  font-size: 1.2em;
-  padding: 1em 2em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #ff3300;
-  box-shadow: 0 0 20px #ff3300;
-}
-
-.faction-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5em;
-  width: 100%;
-  max-width: 1000px;  /* Ajustado para telas maiores */
-  margin-top: 20px;
-}
-
-.faction-card {
-  background-color: #111;
-  border: 2px solid #00ffff44;
-  border-radius: 10px;
-  padding: 1em;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.faction-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px #00ffff66;
-}
-
-.faction-name {
-  font-size: 1.5em;
-  color: #ff5500;
-  margin-top: 0.5em;
-}
-
-.back-button {
-  margin-top: 2em;
-  padding: 0.8em 1.5em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
-}
-
-.back-button:hover {
-  background-color: #ff3300;
-}
-
-.page {
-  display: none;
-}
-
-.active-page {
-  display: block;
-  width: 100%;
-  max-width: 95%; /* Permite que o conteúdo ocupe até 95% da largura da tela */
-  padding: 20px;
-  margin: 0 auto; /* Centraliza o conteúdo */
-}
-
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2.5em;  /* Reduz o tamanho do título em telas menores */
-  }
-
-  p {
-    font-size: 1.2em;  /* Reduz o tamanho do texto em telas menores */
-  }
-
-  button {
-    font-size: 1em;  /* Ajusta o tamanho dos botões em telas menores */
-    padding: 0.8em 1.2em;
-  }
-
-  .faction-grid {
-    gap: 1em;  /* Menor espaçamento entre os cards em telas menores */
-  }
-}
+/* RESET E CONFIGURAÇÕES GERAIS */
 * {
   margin: 0;
   padding: 0;
@@ -620,33 +9,39 @@ html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
   font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+/* CONTAINER PRINCIPAL RESPONSIVO */
 .page {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   padding: 20px;
+  margin: 0 auto;
   text-align: center;
 }
 
+/* TÍTULO */
 h1 {
   font-size: 3em;
   color: #00ffff;
   text-shadow: 0 0 15px #00ffff;
+  margin-bottom: 0.5em;
 }
 
+/* PARÁGRAFO DE INTRODUÇÃO */
 p {
-  font-size: 1.2em;
+  font-size: 1.3em;
   color: #ffffffcc;
   margin-bottom: 2em;
 }
 
+/* BOTÕES PADRÃO */
 button {
   font-size: 1em;
   padding: 1em 2em;
@@ -664,6 +59,7 @@ button:hover {
   box-shadow: 0 0 20px #ff3300;
 }
 
+/* GRID DAS FACÇÕES */
 .faction-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -672,11 +68,13 @@ button:hover {
   margin-top: 20px;
 }
 
+/* CARTÕES DAS FACÇÕES */
 .faction-card {
   background-color: #111;
   border: 2px solid #00ffff44;
   border-radius: 10px;
   padding: 1em;
+  text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
@@ -687,12 +85,38 @@ button:hover {
 }
 
 .faction-name {
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: #ff5500;
   margin-top: 0.5em;
 }
 
-@media (max-width: 600px) {
+/* BOTÃO VOLTAR */
+.back-button {
+  margin-top: 2em;
+  padding: 0.8em 1.5em;
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff5500;
+}
+
+.back-button:hover {
+  background-color: #ff3300;
+}
+
+/* PÁGINAS VISÍVEIS/ESCONDIDAS */
+.page {
+  display: none;
+}
+
+.active-page {
+  display: block;
+}
+
+/* RESPONSIVIDADE PARA CELULARES */
+@media (max-width: 768px) {
   h1 {
     font-size: 2em;
   }
