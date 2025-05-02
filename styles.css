@@ -359,3 +359,128 @@ button:hover {
   max-width: 90%; /* Ajuste para ocupar 90% da tela em dispositivos grandes */
   margin: 0 auto; /* Centraliza o conteúdo */
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Inclui bordas e padding no cálculo da largura e altura */
+}
+
+html, body {
+  height: 100%;  /* Garantir que o conteúdo ocupe toda a altura da tela */
+  width: 100%;  /* Garantir que o conteúdo ocupe toda a largura da tela */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
+  color: white;
+}
+
+h1 {
+  font-size: 4em;
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff;
+  margin: 0.2em;
+}
+
+p {
+  font-size: 1.5em;
+  color: #ffffffcc;
+  margin-bottom: 2em;
+  text-align: center;
+  width: 90%;
+  max-width: 600px; /* Limite para o texto não ficar muito largo */
+}
+
+button {
+  font-size: 1.2em;
+  padding: 1em 2em;
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff5500;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ff3300;
+  box-shadow: 0 0 20px #ff3300;
+}
+
+.faction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5em;
+  width: 100%;
+  max-width: 1000px;  /* Ajustado para telas maiores */
+  margin-top: 20px;
+}
+
+.faction-card {
+  background-color: #111;
+  border: 2px solid #00ffff44;
+  border-radius: 10px;
+  padding: 1em;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.faction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #00ffff66;
+}
+
+.faction-name {
+  font-size: 1.5em;
+  color: #ff5500;
+  margin-top: 0.5em;
+}
+
+.back-button {
+  margin-top: 2em;
+  padding: 0.8em 1.5em;
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff5500;
+}
+
+.back-button:hover {
+  background-color: #ff3300;
+}
+
+.page {
+  display: none;
+}
+
+.active-page {
+  display: block;
+  width: 100%;
+  max-width: 90vw; /* Ajuste de largura em porcentagem da tela */
+  padding: 20px;
+  margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.5em;  /* Reduz o tamanho do título em telas menores */
+  }
+
+  p {
+    font-size: 1.2em;  /* Reduz o tamanho do texto em telas menores */
+  }
+
+  button {
+    font-size: 1em;  /* Ajusta o tamanho dos botões em telas menores */
+    padding: 0.8em 1.2em;
+  }
+
+  .faction-grid {
+    gap: 1em;  /* Menor espaçamento entre os cards em telas menores */
+  }
+}
