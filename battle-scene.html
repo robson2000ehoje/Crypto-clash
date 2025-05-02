@@ -27,3 +27,11 @@
   <script src="battle-scene.js"></script>
 </body>
 </html>
+<button id="selectFactionBtn">Escolher Facção</button>
+
+<script>
+  document.getElementById("selectFactionBtn").addEventListener("click", () => {
+    // Redireciona diretamente para o arquivo da batalha
+    window.location.href = "battle-scene.html";  // Usando o nome do arquivo diretamente, sem subpasta
+  });
+</script>
