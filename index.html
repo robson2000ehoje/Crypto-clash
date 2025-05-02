@@ -192,3 +192,47 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleção de Facção - Crypto Clash</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="selection-container">
+    <h1>Escolha sua Facção</h1>
+    <button class="faction-btn" id="neoBlock">NeoBlock</button>
+    <button class="faction-btn" id="daoMinion">DAOminion</button>
+    <button class="faction-btn" id="shadowHash">ShadowHash</button>
+    <button class="faction-btn" id="nacaoSatoshi">Nação Satoshi</button>
+  </div>
+
+  <script>
+    // Função que redireciona para a tela de batalha e armazena a facção
+    function selectFaction(factionName) {
+      // Armazenando a facção no localStorage para uso na tela de batalha
+      localStorage.setItem('faction', factionName);
+      // Exibindo a pop-up de confirmação
+      alert(`Entrando na batalha com a facção: ${factionName}`);
+      // Redireciona para a tela de batalha
+      window.location.href = "battle-scene.html";
+    }
+
+    // Adicionando event listeners para os botões
+    document.getElementById("neoBlock").addEventListener("click", function() {
+      selectFaction('NeoBlock');
+    });
+    document.getElementById("daoMinion").addEventListener("click", function() {
+      selectFaction('DAOminion');
+    });
+    document.getElementById("shadowHash").addEventListener("click", function() {
+      selectFaction('ShadowHash');
+    });
+    document.getElementById("nacaoSatoshi").addEventListener("click", function() {
+      selectFaction('Nação Satoshi');
+    });
+  </script>
+</body>
+</html>
