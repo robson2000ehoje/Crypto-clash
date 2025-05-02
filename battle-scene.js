@@ -1,80 +1,38 @@
 window.onload = () => {
-  // Captura a facção escolhida
   const faction = localStorage.getItem('faction');
-  
+  const factionNameEl = document.getElementById('faction-name');
+  const playerAvatar = document.getElementById('player-avatar');
+  const battleStatus = document.getElementById('battle-status');
+
   if (faction) {
-    // Mostra o banner da facção escolhida
-    document.getElementById('faction-banner').innerHTML = `Facção: ${faction}`;
-    
-    // Adiciona animações baseadas na facção escolhida
-    const animationPlaceholder = document.getElementById('animation-placeholder');
-    
-    // Exemplo de animações diferentes por facção
-    if (faction === 'NeoBlock') {
-      animationPlaceholder.innerHTML = "A NeoBlock está iniciando a batalha...";
-      animationPlaceholder.style.backgroundColor = '#005cbf'; // Azul
-      // Adicione animações específicas aqui
-    } else if (faction === 'DAOminion') {
-      animationPlaceholder.innerHTML = "A DAOminion está se preparando...";
-      animationPlaceholder.style.backgroundColor = '#9b59b6'; // Roxo
-      // Adicione animações específicas aqui
-    } else if (faction === 'ShadowHash') {
-      animationPlaceholder.innerHTML = "A ShadowHash está invocando suas forças...";
-      animationPlaceholder.style.backgroundColor = '#333'; // Preto
-      // Adicione animações específicas aqui
-    } else if (faction === 'Nação Satoshi') {
-      animationPlaceholder.innerHTML = "A Nação Satoshi está pronta!";
-      animationPlaceholder.style.backgroundColor = '#f39c12'; // Amarelo
-      // Adicione animações específicas aqui
+    factionNameEl.innerText = `Facção: ${faction}`;
+
+    switch (faction) {
+      case 'NeoBlock':
+        playerAvatar.style.background = '#005cbf';
+        battleStatus.innerText = "NeoBlock pronta para invadir o sistema!";
+        break;
+      case 'DAOminion':
+        playerAvatar.style.background = '#9b59b6';
+        battleStatus.innerText = "DAOminion energizando a rede...";
+        break;
+      case 'ShadowHash':
+        playerAvatar.style.background = '#111';
+        battleStatus.innerText = "ShadowHash operando nas sombras...";
+        break;
+      case 'Nação Satoshi':
+        playerAvatar.style.background = '#f39c12';
+        battleStatus.innerText = "Nação Satoshi defendendo o legado!";
+        break;
+      default:
+        battleStatus.innerText = "Facção desconhecida.";
     }
   } else {
-    // Caso não haja facção selecionada
-    document.getElementById('faction-banner').innerHTML = "Nenhuma facção selecionada!";
+    factionNameEl.innerText = "Nenhuma facção selecionada!";
   }
 
-  // Lógica do botão de iniciar batalha
   document.getElementById('startBattleBtn').addEventListener('click', () => {
-    alert('Batalha iniciada!');
-    // Aqui você pode colocar a lógica da batalha real ou transição para outra tela
-  });
-};
-window.onload = () => {
-  // Captura a facção escolhida
-  const faction = localStorage.getItem('faction');
-  
-  if (faction) {
-    // Mostra o banner da facção escolhida
-    document.getElementById('faction-banner').innerHTML = `Facção: ${faction}`;
-    
-    // Adiciona animações baseadas na facção escolhida
-    const animationPlaceholder = document.getElementById('animation-placeholder');
-    
-    // Exemplo de animações diferentes por facção
-    if (faction === 'NeoBlock') {
-      animationPlaceholder.innerHTML = "A NeoBlock está iniciando a batalha...";
-      animationPlaceholder.style.backgroundColor = '#005cbf'; // Azul
-      // Adicione animações específicas aqui
-    } else if (faction === 'DAOminion') {
-      animationPlaceholder.innerHTML = "A DAOminion está se preparando...";
-      animationPlaceholder.style.backgroundColor = '#9b59b6'; // Roxo
-      // Adicione animações específicas aqui
-    } else if (faction === 'ShadowHash') {
-      animationPlaceholder.innerHTML = "A ShadowHash está invocando suas forças...";
-      animationPlaceholder.style.backgroundColor = '#333'; // Preto
-      // Adicione animações específicas aqui
-    } else if (faction === 'Nação Satoshi') {
-      animationPlaceholder.innerHTML = "A Nação Satoshi está pronta!";
-      animationPlaceholder.style.backgroundColor = '#f39c12'; // Amarelo
-      // Adicione animações específicas aqui
-    }
-  } else {
-    // Caso não haja facção selecionada
-    document.getElementById('faction-banner').innerHTML = "Nenhuma facção selecionada!";
-  }
-
-  // Lógica do botão de iniciar batalha
-  document.getElementById('startBattleBtn').addEventListener('click', () => {
-    alert('Batalha iniciada!');
-    // Aqui você pode colocar a lógica da batalha real ou transição para outra tela
+    battleStatus.innerText = "Batalha em andamento...";
+    // Aqui você pode adicionar animações ou lógica real da batalha
   });
 };
