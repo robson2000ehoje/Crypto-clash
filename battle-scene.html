@@ -3,42 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tela de Batalha - Crypto Clash</title>
+  <title>Batalha - Crypto Clash</title>
   <link rel="stylesheet" href="battle-scene.css">
 </head>
 <body>
-  <div class="battle-container">
-    <h1>Bem-vindo à Batalha!</h1>
-    <div id="faction-banner" class="faction-banner"></div>
-    <div class="battle-animation">
-      <div id="animation-placeholder" class="animation-placeholder">
-        <span>Iniciando Batalha...</span>
-      </div>
-    </div>
-    <button id="startBattleBtn">Iniciar Batalha</button>
-  </div>
+  <div class="battle-wrapper">
+    <header class="battle-header">
+      <h1>Crypto Clash</h1>
+      <div id="faction-name" class="faction-name">Facção: ???</div>
+    </header>
 
-  <script src="battle-scene.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tela de Batalha - Crypto Clash</title>
-  <link rel="stylesheet" href="battle-scene.css">
-</head>
-<body>
-  <div class="battle-container">
-    <h1>Bem-vindo à Batalha!</h1>
-    <div id="faction-banner" class="faction-banner"></div>
-    <div class="battle-animation">
-      <div id="animation-placeholder" class="animation-placeholder">
-        <span>Iniciando Batalha...</span>
+    <main class="battle-main">
+      <div class="faction-panel" id="left-panel">
+        <h2>Você</h2>
+        <div class="avatar" id="player-avatar"></div>
       </div>
-    </div>
-    <button id="startBattleBtn">Iniciar Batalha</button>
+
+      <div class="battle-effects" id="battle-effects">
+        <p id="battle-status">Preparando batalha...</p>
+      </div>
+
+      <div class="faction-panel" id="right-panel">
+        <h2>Inimigo</h2>
+        <div class="avatar enemy-avatar"></div>
+      </div>
+    </main>
+
+    <footer class="battle-footer">
+      <button id="startBattleBtn">Iniciar Batalha</button>
+    </footer>
   </div>
 
   <script src="battle-scene.js"></script>
