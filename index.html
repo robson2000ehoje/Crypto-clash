@@ -1,42 +1,51 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crypto-Clash</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
       font-family: 'Orbitron', sans-serif;
       background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-      color: white;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px;
+      margin: 0 auto;
+      text-align: center;
     }
 
     h1 {
-      font-size: 4em;
+      font-size: 3em;
       color: #00ffff;
       text-shadow: 0 0 15px #00ffff;
-      margin: 0.2em;
+      margin-bottom: 0.5em;
     }
 
     p {
-      font-size: 1.5em;
+      font-size: 1.3em;
       color: #ffffffcc;
       margin-bottom: 2em;
-      text-align: center;
-      max-width: 600px;
     }
 
     button {
-      font-size: 1.2em;
+      font-size: 1em;
       padding: 1em 2em;
       background-color: #ff5500;
       color: white;
@@ -57,7 +66,6 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5em;
       width: 100%;
-      max-width: 1000px;
       margin-top: 20px;
     }
 
@@ -104,62 +112,61 @@
     .active-page {
       display: block;
     }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      .faction-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-
-  <!-- Página de Boas-Vindas -->
-  <div id="welcome-page" class="page active-page">
-    <h1>Crypto-Clash</h1>
-    <p>Bem-vindo ao campo de batalha das criptomoedas. Prepare-se para escolher seu lado na guerra digital.</p>
-    <button onclick="showPage('faction-select')">Iniciar</button>
+  <!-- PÁGINA DE BOAS-VINDAS -->
+  <div id="welcome" class="page active-page">
+    <h1>Bem-vindo ao Crypto-Clash</h1>
+    <p>Escolha sua facção e entre na guerra do mundo das criptomoedas.</p>
+    <button onclick="showPage('faction')">Iniciar</button>
   </div>
 
-  <!-- Página de Seleção de Facção -->
-  <div id="faction-select-page" class="page">
-    <h1>Escolha sua Facção</h1>
+  <!-- TELA DE SELEÇÃO DE FACÇÃO -->
+  <div id="faction" class="page">
+    <h1>Escolha sua facção</h1>
     <div class="faction-grid">
-      <div class="faction-card" onclick="selectFaction('NeoBlock Corp')">
-        <img src="https://via.placeholder.com/200x120?text=NeoBlock+Corp" alt="NeoBlock Corp">
-        <div class="faction-name">NeoBlock Corp</div>
+      <div class="faction-card">
+        <h2 class="faction-name">NeoBlock Corp</h2>
+        <p>Domínio corporativo das blockchains privadas.</p>
       </div>
-      <div class="faction-card" onclick="selectFaction('DAOminion')">
-        <img src="https://via.placeholder.com/200x120?text=DAOminion" alt="DAOminion">
-        <div class="faction-name">DAOminion</div>
+      <div class="faction-card">
+        <h2 class="faction-name">DAOminion</h2>
+        <p>Governança descentralizada acima de tudo.</p>
       </div>
-      <div class="faction-card" onclick="selectFaction('ShadowHash')">
-        <img src="https://via.placeholder.com/200x120?text=ShadowHash" alt="ShadowHash">
-        <div class="faction-name">ShadowHash</div>
+      <div class="faction-card">
+        <h2 class="faction-name">ShadowHash</h2>
+        <p>Hackers das profundezas da rede cripto.</p>
       </div>
-      <div class="faction-card" onclick="selectFaction('Nação Satoshi')">
-        <img src="https://via.placeholder.com/200x120?text=Nacao+Satoshi" alt="Nação Satoshi">
-        <div class="faction-name">Nação Satoshi</div>
+      <div class="faction-card">
+        <h2 class="faction-name">Nação Satoshi</h2>
+        <p>Os puristas do Bitcoin e da descentralização.</p>
       </div>
     </div>
-
     <button class="back-button" onclick="showPage('welcome')">Voltar</button>
   </div>
 
   <script>
-    // Função para alternar entre as páginas
-    function showPage(page) {
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(p => p.classList.remove('active-page'));
-      
-      if (page === 'welcome') {
-        document.getElementById('welcome-page').classList.add('active-page');
-      } else if (page === 'faction-select') {
-        document.getElementById('faction-select-page').classList.add('active-page');
-      }
-    }
-
-    // Função para selecionar a facção
-    function selectFaction(name) {
-      alert("Facção selecionada: " + name);
-      // Aqui você pode adicionar mais lógica para continuar com o jogo
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active-page');
+      });
+      document.getElementById(pageId).classList.add('active-page');
     }
   </script>
-
 </body>
 </html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
