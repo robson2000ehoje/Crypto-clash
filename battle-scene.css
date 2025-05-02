@@ -1,136 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
+/* Estilo geral da página */
 body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: radial-gradient(circle at center, #0b0c2a, #000);
+  font-family: 'Arial', sans-serif;
+  background-color: #1e1e1e;
   color: white;
-  overflow: hidden;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-.battle-hud {
-  display: flex;
-  justify-content: space-between;
+/* Container da batalha */
+.battle-container {
   padding: 20px;
 }
 
-.player, .enemy {
-  width: 45%;
+h1 {
+  font-size: 2em;
+  color: #ff6600;
+  margin-bottom: 20px;
 }
 
-.health-bar {
-  width: 100%;
-  height: 20px;
-  background: #222;
-  border: 2px solid #555;
+.faction-banner {
+  background-color: #333;
+  padding: 10px;
+  margin-bottom: 20px;
   border-radius: 10px;
-  overflow: hidden;
-  margin-top: 10px;
 }
 
-.health-fill {
+.battle-animation {
+  position: relative;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, #00f0ff, #0066cc);
-  animation: pulse-health 2s infinite;
+  height: 300px;
+  margin-top: 50px;
 }
 
-.enemy-fill {
-  background: linear-gradient(to right, #ff0044, #cc0033);
-}
-
-.battle-stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 70vh;
-  position: relative;
-}
-
-.battle-status {
-  font-size: 2rem;
-  margin-top: 20px;
-  text-shadow: 0 0 10px #00f0ff;
-}
-
-/* Animação da facção NeoBlock */
-.neoblock-animation {
-  width: 150px;
-  height: 150px;
-  border: 4px solid #00f0ff;
-  border-radius: 50%;
-  animation: neoblockPulse 2s infinite;
-  box-shadow: 0 0 30px #00f0ff;
-}
-
-@keyframes neoblockPulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes pulse-health {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-
-/* DAOminion - Tentáculos de código roxo */
-.daominion-animation {
-  width: 160px;
-  height: 160px;
-  background: repeating-radial-gradient(circle, #7d00ff, #4b0077 10px);
-  border-radius: 50%;
-  animation: daominionTentacles 3s infinite ease-in-out;
-  box-shadow: 0 0 25px #7d00ff;
-}
-
-@keyframes daominionTentacles {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(15deg) scale(1.1); }
-}
-
-/* ShadowHash - Glitch de sombras */
-.shadowhash-animation {
-  width: 150px;
-  height: 150px;
-  background: #000;
-  border: 3px solid #999;
-  position: relative;
-  animation: shadowGlitch 1.5s infinite;
-}
-
-@keyframes shadowGlitch {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-3px, 2px); }
-  40% { transform: translate(3px, -2px); }
-  60% { transform: translate(-2px, 3px); }
-  80% { transform: translate(2px, -3px); }
-  100% { transform: translate(0, 0); }
-}
-
-/* Nação Satoshi - Circuitos dourados */
-.satoshi-animation {
-  width: 140px;
-  height: 140px;
-  border: 4px solid gold;
-  background: repeating-linear-gradient(45deg, gold, gold 2px, transparent 2px, transparent 4px);
+.animation-placeholder {
+  background-color: #444;
+  color: #fff;
+  padding: 20px;
+  font-size: 1.5em;
   border-radius: 10px;
-  animation: satoshiPulse 2.2s infinite;
-  box-shadow: 0 0 20px gold;
 }
 
-@keyframes satoshiPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.1); }
+button {
+  background-color: #ff6600;
+  color: white;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #e65c00;
 }
