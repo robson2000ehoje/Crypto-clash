@@ -1,4 +1,3 @@
-/* RESET E CONFIGURAÇÕES GERAIS */
 * {
   margin: 0;
   padding: 0;
@@ -8,25 +7,25 @@
 html, body {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
   font-family: 'Orbitron', sans-serif;
   background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  overflow-x: hidden;
 }
 
-/* CONTAINER PRINCIPAL RESPONSIVO */
+/* Cada página agora se centraliza sozinha */
 .page {
   width: 100%;
   max-width: 1200px;
-  padding: 20px;
+  min-height: 100vh;
   margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-/* TÍTULO */
 h1 {
   font-size: 3em;
   color: #00ffff;
@@ -34,14 +33,12 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-/* PARÁGRAFO DE INTRODUÇÃO */
 p {
   font-size: 1.3em;
   color: #ffffffcc;
   margin-bottom: 2em;
 }
 
-/* BOTÕES PADRÃO */
 button {
   font-size: 1em;
   padding: 1em 2em;
@@ -59,7 +56,6 @@ button:hover {
   box-shadow: 0 0 20px #ff3300;
 }
 
-/* GRID DAS FACÇÕES */
 .faction-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -68,7 +64,6 @@ button:hover {
   margin-top: 20px;
 }
 
-/* CARTÕES DAS FACÇÕES */
 .faction-card {
   background-color: #111;
   border: 2px solid #00ffff44;
@@ -90,7 +85,6 @@ button:hover {
   margin-top: 0.5em;
 }
 
-/* BOTÃO VOLTAR */
 .back-button {
   margin-top: 2em;
   padding: 0.8em 1.5em;
@@ -106,16 +100,16 @@ button:hover {
   background-color: #ff3300;
 }
 
-/* PÁGINAS VISÍVEIS/ESCONDIDAS */
+/* visibilidade das páginas */
 .page {
   display: none;
 }
 
 .active-page {
-  display: block;
+  display: flex;
 }
 
-/* RESPONSIVIDADE PARA CELULARES */
+/* responsivo para celulares */
 @media (max-width: 768px) {
   h1 {
     font-size: 2em;
