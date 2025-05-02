@@ -51,11 +51,114 @@
       background-color: #ff3300;
       box-shadow: 0 0 20px #ff3300;
     }
+
+    .faction-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5em;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    .faction-card {
+      background-color: #111;
+      border: 2px solid #00ffff44;
+      border-radius: 10px;
+      padding: 1em;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .faction-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px #00ffff66;
+    }
+
+    .faction-name {
+      font-size: 1.5em;
+      color: #ff5500;
+      margin-top: 0.5em;
+    }
+
+    .back-button {
+      margin-top: 2em;
+      padding: 0.8em 1.5em;
+      background-color: #ff5500;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff5500;
+    }
+
+    .back-button:hover {
+      background-color: #ff3300;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .active-page {
+      display: block;
+    }
   </style>
 </head>
 <body>
-  <h1>Crypto-Clash</h1>
-  <p>Bem-vindo ao campo de batalha das criptomoedas. Prepare-se para escolher seu lado na guerra digital.</p>
-  <button onclick="window.location.href='faction-select.html'">Iniciar</button>
+
+  <!-- Página de Boas-Vindas -->
+  <div id="welcome-page" class="page active-page">
+    <h1>Crypto-Clash</h1>
+    <p>Bem-vindo ao campo de batalha das criptomoedas. Prepare-se para escolher seu lado na guerra digital.</p>
+    <button onclick="showPage('faction-select')">Iniciar</button>
+  </div>
+
+  <!-- Página de Seleção de Facção -->
+  <div id="faction-select-page" class="page">
+    <h1>Escolha sua Facção</h1>
+    <div class="faction-grid">
+      <div class="faction-card" onclick="selectFaction('NeoBlock Corp')">
+        <img src="https://via.placeholder.com/200x120?text=NeoBlock+Corp" alt="NeoBlock Corp">
+        <div class="faction-name">NeoBlock Corp</div>
+      </div>
+      <div class="faction-card" onclick="selectFaction('DAOminion')">
+        <img src="https://via.placeholder.com/200x120?text=DAOminion" alt="DAOminion">
+        <div class="faction-name">DAOminion</div>
+      </div>
+      <div class="faction-card" onclick="selectFaction('ShadowHash')">
+        <img src="https://via.placeholder.com/200x120?text=ShadowHash" alt="ShadowHash">
+        <div class="faction-name">ShadowHash</div>
+      </div>
+      <div class="faction-card" onclick="selectFaction('Nação Satoshi')">
+        <img src="https://via.placeholder.com/200x120?text=Nacao+Satoshi" alt="Nação Satoshi">
+        <div class="faction-name">Nação Satoshi</div>
+      </div>
+    </div>
+
+    <button class="back-button" onclick="showPage('welcome')">Voltar</button>
+  </div>
+
+  <script>
+    // Função para alternar entre as páginas
+    function showPage(page) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => p.classList.remove('active-page'));
+      
+      if (page === 'welcome') {
+        document.getElementById('welcome-page').classList.add('active-page');
+      } else if (page === 'faction-select') {
+        document.getElementById('faction-select-page').classList.add('active-page');
+      }
+    }
+
+    // Função para selecionar a facção
+    function selectFaction(name) {
+      alert("Facção selecionada: " + name);
+      // Aqui você pode adicionar mais lógica para continuar com o jogo
+    }
+  </script>
+
 </body>
 </html>
