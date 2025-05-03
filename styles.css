@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Orbitron', sans-serif;
-  background: url('https://pixabay.com/pt/illustrations/corredor-futurista-luzes-neon-1234567/') no-repeat center center fixed;
+  background: url('https://cdn.pixabay.com/photo/2017/09/07/10/29/fantasy-2729533_1280.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
   display: flex;
@@ -15,11 +15,11 @@ body {
 
 .welcome-container {
   text-align: center;
-  background-color: rgba(26, 26, 26, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 0 20px #00d8ff;
-  max-width: 600px;
+  max-width: 700px;
   width: 90%;
 }
 
@@ -42,16 +42,15 @@ p {
 }
 
 .faction {
-  background: #222;
+  background: #111;
   border: 2px solid #00d8ff;
   border-radius: 10px;
-  padding: 20px 30px;
+  padding: 20px;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
   font-size: 1.1rem;
-  min-width: 200px;
-  position: relative;
-  overflow: hidden;
+  width: 200px;
+  text-align: center;
 }
 
 .faction:hover {
@@ -59,24 +58,6 @@ p {
   box-shadow: 0 0 15px #00d8ff;
 }
 
-/* Cores por facção */
-.faction[data-faction="NeoBlock"] {
-  border-color: #005cbf;
-}
-
-.faction[data-faction="DAOminion"] {
-  border-color: #9b59b6;
-}
-
-.faction[data-faction="ShadowHash"] {
-  border-color: #444;
-}
-
-.faction[data-faction="Nação Satoshi"] {
-  border-color: #f39c12;
-}
-
-/* Animação de clique */
 .faction.clicked {
   animation: pulse 0.4s ease-in-out;
 }
@@ -96,10 +77,10 @@ p {
   }
 }
 
-/* Estilo para a imagem das facções */
 .faction-image {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
   margin-bottom: 10px;
 }
