@@ -14,24 +14,32 @@
 
     <div class="faction-selection">
       <div class="faction" data-faction="NeoBlock">
-        <img src="https://cdn.pixabay.com/photo/2017/01/06/19/15/futuristic-1953078_1280.jpg" alt="NeoBlock Corp" class="faction-image">
+        <img src="img/neoblock.jpg" alt="NeoBlock Corp" class="faction-image">
         <span>NeoBlock Corp</span>
       </div>
       <div class="faction" data-faction="DAOminion">
-        <img src="https://cdn.pixabay.com/photo/2021/09/01/09/57/technology-6591927_1280.jpg" alt="DAOminion" class="faction-image">
+        <img src="img/daominion.jpg" alt="DAOminion" class="faction-image">
         <span>DAOminion</span>
       </div>
       <div class="faction" data-faction="ShadowHash">
-        <img src="https://cdn.pixabay.com/photo/2020/05/17/15/19/hacker-5186880_1280.jpg" alt="ShadowHash" class="faction-image">
+        <img src="img/shadowhash.jpg" alt="ShadowHash" class="faction-image">
         <span>ShadowHash</span>
       </div>
       <div class="faction" data-faction="Nação Satoshi">
-        <img src="https://cdn.pixabay.com/photo/2021/03/10/16/43/bitcoin-6088627_1280.jpg" alt="Nação Satoshi" class="faction-image">
+        <img src="img/satoshi.jpg" alt="Nação Satoshi" class="faction-image">
         <span>Nação Satoshi</span>
       </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    document.querySelectorAll(".faction").forEach((faction) => {
+      faction.addEventListener("click", () => {
+        const selectedFaction = faction.getAttribute("data-faction");
+        localStorage.setItem("faction", selectedFaction);
+        window.location.href = "battle-scene.html";
+      });
+    });
+  </script>
 </body>
 </html>
