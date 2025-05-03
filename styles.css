@@ -1,123 +1,71 @@
-* {
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
   font-family: 'Orbitron', sans-serif;
-  background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-  overflow-x: hidden;
-}
-
-.page {
-  width: 100%;
-  max-width: 1200px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 20px;
-  display: none;
-  flex-direction: column;
+  background: linear-gradient(145deg, #0a0a0a, #121212);
+  color: #fff;
+  display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  position: relative;
-  z-index: 1;
+  height: 100vh;
 }
 
-.active-page {
-  display: flex;
+.welcome-container {
+  text-align: center;
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00d8ff;
+  max-width: 600px;
+  width: 90%;
 }
 
 h1 {
-  font-size: 3em;
-  color: #00ffff;
-  text-shadow: 0 0 15px #00ffff;
-  margin-bottom: 0.5em;
+  font-size: 2.5rem;
+  color: #00d8ff;
+  margin-bottom: 10px;
 }
 
 p {
-  font-size: 1.3em;
-  color: #ffffffcc;
-  margin-bottom: 2em;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
-button {
-  font-size: 1em;
-  padding: 1em 2em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
-  transition: 0.3s;
-  z-index: 2; /* Certificar que o botão está sempre em cima */
+.faction-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
-button:hover {
-  background-color: #ff3300;
-  box-shadow: 0 0 20px #ff3300;
-}
-
-.faction-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5em;
-  width: 100%;
-  margin-top: 20px;
-  z-index: 2; /* As facções devem estar acima de outros conteúdos */
-}
-
-.faction-card {
-  background-color: #111;
-  border: 2px solid #00ffff44;
+.faction {
+  background: #222;
+  border: 2px solid #00d8ff;
   border-radius: 10px;
-  padding: 1em;
-  text-align: center;
+  padding: 20px 30px;
+  cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  z-index: 3; /* Garantir que o cartão de facção está no topo */
+  font-size: 1.1rem;
+  min-width: 200px;
 }
 
-.faction-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px #00ffff66;
+.faction:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #00d8ff;
 }
 
-.faction-name {
-  font-size: 1.5em;
-  color: #ff5500;
-  margin-top: 0.5em;
+.faction[data-faction="NeoBlock"] {
+  border-color: #005cbf;
 }
 
-.back-button {
-  margin-top: 2em;
-  padding: 0.8em 1.5em;
-  background-color: #ff5500;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #ff5500;
+.faction[data-faction="DAOminion"] {
+  border-color: #9b59b6;
 }
 
-.back-button:hover {
-  background-color: #ff3300;
+.faction[data-faction="ShadowHash"] {
+  border-color: #444;
 }
 
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2em;
-  }
-
-  p {
-    font-size: 1em;
-  }
-
-  .faction-grid {
-    grid-template-columns: 1fr;
-  }
+.faction[data-faction="Nação Satoshi"] {
+  border-color: #f39c12;
 }
