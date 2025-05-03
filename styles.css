@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
 body {
   margin: 0;
   padding: 0;
@@ -47,6 +49,8 @@ p {
   transition: transform 0.3s, box-shadow 0.3s;
   font-size: 1.1rem;
   min-width: 200px;
+  position: relative;
+  overflow: hidden;
 }
 
 .faction:hover {
@@ -54,6 +58,7 @@ p {
   box-shadow: 0 0 15px #00d8ff;
 }
 
+/* Cores personalizadas por facção */
 .faction[data-faction="NeoBlock"] {
   border-color: #005cbf;
 }
@@ -68,4 +73,24 @@ p {
 
 .faction[data-faction="Nação Satoshi"] {
   border-color: #f39c12;
+}
+
+/* Animação de clique */
+.faction.clicked {
+  animation: flashOut 0.4s ease-in-out forwards;
+}
+
+@keyframes flashOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
 }
