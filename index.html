@@ -32,17 +32,6 @@
     </div>
   </div>
 
-  <script>
-    document.querySelectorAll(".faction").forEach((faction) => {
-      faction.addEventListener("click", () => {
-        const selectedFaction = faction.getAttribute("data-faction");
-        localStorage.setItem("faction", selectedFaction);
-        faction.classList.add("clicked");
-        setTimeout(() => {
-          window.location.href = "battle-scene.html";
-        }, 400);
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
