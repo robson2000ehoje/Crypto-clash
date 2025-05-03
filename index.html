@@ -30,3 +30,15 @@
   </script>
 </body>
 </html>
+document.querySelectorAll(".faction").forEach((faction) => {
+  faction.addEventListener("click", () => {
+    const selectedFaction = faction.getAttribute("data-faction");
+    localStorage.setItem("faction", selectedFaction);
+
+    faction.classList.add("clicked");
+
+    setTimeout(() => {
+      window.location.href = "battle-scene.html";
+    }, 400); // Espera a animação terminar
+  });
+});
