@@ -1,37 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Batalha - Crypto Clash</title>
-  <link rel="stylesheet" href="battle-scene.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crypto Clash - Batalha</title>
+  <link rel="stylesheet" href="battle-scene.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="battle-wrapper">
-    <header class="battle-header">
-      <h1>Crypto Clash</h1>
-      <div id="faction-name" class="faction-name">Facção: ???</div>
-    </header>
-
-    <main class="battle-main">
-      <div class="faction-panel" id="left-panel">
-        <h2>Você</h2>
-        <div class="avatar" id="player-avatar"></div>
-      </div>
-
-      <div class="battle-effects" id="battle-effects">
-        <p id="battle-status">Preparando batalha...</p>
-      </div>
-
-      <div class="faction-panel" id="right-panel">
-        <h2>Inimigo</h2>
-        <div class="avatar enemy-avatar"></div>
-      </div>
-    </main>
-
-    <footer class="battle-footer">
-      <button id="startBattleBtn">Iniciar Batalha</button>
-    </footer>
+  <div class="battle-container">
+    <h1 id="battle-title">Preparando batalha...</h1>
+    <div class="battle-zone" id="battle-zone">
+      <div class="unit player">Você</div>
+      <div class="vs">VS</div>
+      <div class="unit enemy">Inimigo</div>
+    </div>
   </div>
 
   <script src="battle-scene.js"></script>
