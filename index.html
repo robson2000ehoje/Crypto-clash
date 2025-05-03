@@ -1,237 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto-Clash</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(ellipse at center, #0b0c2a 0%, #000000 100%);
-      overflow-x: hidden;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 1200px;
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 20px;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .active-page {
-      display: flex;
-    }
-
-    h1 {
-      font-size: 3em;
-      color: #00ffff;
-      text-shadow: 0 0 15px #00ffff;
-      margin-bottom: 0.5em;
-    }
-
-    p {
-      font-size: 1.3em;
-      color: #ffffffcc;
-      margin-bottom: 2em;
-    }
-
-    button {
-      font-size: 1em;
-      padding: 1em 2em;
-      background-color: #ff5500;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff5500;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #ff3300;
-      box-shadow: 0 0 20px #ff3300;
-    }
-
-    .faction-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5em;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    .faction-card {
-      background-color: #111;
-      border: 2px solid #00ffff44;
-      border-radius: 10px;
-      padding: 1em;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-
-    .faction-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px #00ffff66;
-    }
-
-    .faction-name {
-      font-size: 1.5em;
-      color: #ff5500;
-      margin-top: 0.5em;
-    }
-
-    .back-button {
-      margin-top: 2em;
-      padding: 0.8em 1.5em;
-      background-color: #ff5500;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff5500;
-    }
-
-    .back-button:hover {
-      background-color: #ff3300;
-    }
-
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2em;
-      }
-
-      p {
-        font-size: 1em;
-      }
-
-      .faction-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- PÁGINA DE BOAS-VINDAS -->
-  <div id="welcome" class="page active-page">
-    <h1>Bem-vindo ao Crypto-Clash</h1>
-    <p>Escolha sua facção e entre na guerra do mundo das criptomoedas.</p>
-    <button onclick="showPage('faction')">Iniciar</button>
-  </div>
-
-  <!-- TELA DE SELEÇÃO DE FACÇÃO -->
-  <div id="faction" class="page">
-    <h1>Escolha sua facção</h1>
-    <div class="faction-grid">
-      <div class="faction-card" onclick="selectFaction('NeoBlock Corp')">
-        <h2 class="faction-name">NeoBlock Corp</h2>
-        <p>Domínio corporativo das blockchains privadas.</p>
-      </div>
-      <div class="faction-card" onclick="selectFaction('DAOminion')">
-        <h2 class="faction-name">DAOminion</h2>
-        <p>Governança descentralizada acima de tudo.</p>
-      </div>
-      <div class="faction-card" onclick="selectFaction('ShadowHash')">
-        <h2 class="faction-name">ShadowHash</h2>
-        <p>Hackers das profundezas da rede cripto.</p>
-      </div>
-      <div class="faction-card" onclick="selectFaction('Nação Satoshi')">
-        <h2 class="faction-name">Nação Satoshi</h2>
-        <p>Os puristas do Bitcoin e da descentralização.</p>
-      </div>
-    </div>
-    <button class="back-button" onclick="showPage('welcome')">Voltar</button>
-  </div>
-
-  <!-- TELA DE INÍCIO DE BATALHA -->
-  <div id="battle-start" class="page">
-    <h1>Prepare-se para a Batalha!</h1>
-    <p id="chosen-faction-text">Você escolheu: <strong></strong></p>
-    <button onclick="startBattle()">Entrar na Batalha</button>
-  </div>
-
-  <script>
-    let selectedFaction = '';
-
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active-page');
-      });
-      document.getElementById(pageId).classList.add('active-page');
-    }
-
-    function selectFaction(name) {
-      selectedFaction = name;
-      document.getElementById('chosen-faction-text').innerHTML =
-        'Você escolheu: <strong>' + name + '</strong>';
-      showPage('battle-start');
-    }
-
-    function startBattle() {
-      alert('Entrando na batalha com a facção: ' + selectedFaction);
-      // Aqui você pode redirecionar para a próxima etapa do jogo
-    }
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seleção de Facção - Crypto Clash</title>
+  <title>Crypto Clash - Escolha sua facção</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="selection-container">
-    <h1>Escolha sua Facção</h1>
-    <button class="faction-btn" id="neoBlock">NeoBlock</button>
-    <button class="faction-btn" id="daoMinion">DAOminion</button>
-    <button class="faction-btn" id="shadowHash">ShadowHash</button>
-    <button class="faction-btn" id="nacaoSatoshi">Nação Satoshi</button>
+  <div class="welcome-container">
+    <h1>Bem-vindo ao Crypto Clash</h1>
+    <p>Escolha sua facção para iniciar a batalha:</p>
+
+    <div class="faction-selection">
+      <div class="faction" data-faction="NeoBlock">NeoBlock Corp</div>
+      <div class="faction" data-faction="DAOminion">DAOminion</div>
+      <div class="faction" data-faction="ShadowHash">ShadowHash</div>
+      <div class="faction" data-faction="Nação Satoshi">Nação Satoshi</div>
+    </div>
   </div>
 
   <script>
-    // Função que redireciona para a tela de batalha e armazena a facção
-    function selectFaction(factionName) {
-      // Armazenando a facção no localStorage para uso na tela de batalha
-      localStorage.setItem('faction', factionName);
-      // Exibindo a pop-up de confirmação
-      alert(`Entrando na batalha com a facção: ${factionName}`);
-      // Redireciona para a tela de batalha
-      window.location.href = "battle-scene.html";
-    }
-
-    // Adicionando event listeners para os botões
-    document.getElementById("neoBlock").addEventListener("click", function() {
-      selectFaction('NeoBlock');
-    });
-    document.getElementById("daoMinion").addEventListener("click", function() {
-      selectFaction('DAOminion');
-    });
-    document.getElementById("shadowHash").addEventListener("click", function() {
-      selectFaction('ShadowHash');
-    });
-    document.getElementById("nacaoSatoshi").addEventListener("click", function() {
-      selectFaction('Nação Satoshi');
+    document.querySelectorAll(".faction").forEach((faction) => {
+      faction.addEventListener("click", () => {
+        const selectedFaction = faction.getAttribute("data-faction");
+        localStorage.setItem("faction", selectedFaction);
+        window.location.href = "battle-scene.html";
+      });
     });
   </script>
 </body>
