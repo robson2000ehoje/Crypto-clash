@@ -75,7 +75,7 @@ p {
   border-color: #f39c12;
 }
 
-/* Animação de clique suave */
+/* Animação de clique leve */
 .faction.clicked {
   animation: pulse 0.4s ease-in-out;
 }
