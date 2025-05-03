@@ -58,7 +58,7 @@ p {
   box-shadow: 0 0 15px #00d8ff;
 }
 
-/* Cores personalizadas por facção */
+/* Cores por facção */
 .faction[data-faction="NeoBlock"] {
   border-color: #005cbf;
 }
@@ -75,7 +75,7 @@ p {
   border-color: #f39c12;
 }
 
-/* Animação de clique leve */
+/* Animação de clique */
 .faction.clicked {
   animation: pulse 0.4s ease-in-out;
 }
